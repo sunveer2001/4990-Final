@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Chapter Summaries</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="loading">
+        <div class="loading-spinner"></div>
+    </div>
+    <div class="container">
+        <h1>Book Chapter Summaries</h1>
+        <form method="post" id="book-form">
+            <input type="text" id="book_url" name="book_url" placeholder="Enter book URL">
+            <input type="submit" value="Generate Summaries">
+        </form>
+        {% if summaries %}
+        <div class="summaries">
+            {% for summary in summaries %}
+            <div class="summary">
+                <h3>{{ summary[0] }}</h3>
+                <p>{{ summary[1] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <script>
+        const form = document.getElementById('book-form');
+        const loadingOverlay = document.querySelector('.loading');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            loadingOverlay.style.display = 'flex';
+            form.submit();
+        });
+    </script>
+</body>
+</html>
